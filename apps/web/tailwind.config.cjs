@@ -191,7 +191,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ["var(--font-inter)"],
+      sans: ["var(--font-montserrat)"],
     },
   },
   plugins: [flowbiteReact],

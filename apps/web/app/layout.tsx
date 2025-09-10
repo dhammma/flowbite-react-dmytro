@@ -1,5 +1,5 @@
 import { ThemeModeScript } from "flowbite-react";
-import { Inter as InterFont } from "next/font/google";
+import { Montserrat as MontserratFont } from "next/font/google";
 import type { Metadata, Viewport } from "next/types";
 import type { PropsWithChildren } from "react";
 import { FathomScript } from "~/components/fathom-script";
@@ -7,9 +7,9 @@ import { ThemeInit } from "../.flowbite-react/init";
 
 import "~/styles/globals.css";
 
-const interFont = InterFont({
+const montserratFont = MontserratFont({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-montserrat",
 });
 
 export const metadata: Metadata = {
@@ -56,7 +56,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className={`${interFont.variable} font-sans`} suppressHydrationWarning>
+    <html lang="en" className={`${montserratFont.variable} font-sans`} suppressHydrationWarning>
       <head>
         <ThemeModeScript />
       </head>
