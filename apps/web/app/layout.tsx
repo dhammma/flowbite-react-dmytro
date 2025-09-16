@@ -59,6 +59,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en" className={`${montserratFont.variable} font-sans`} suppressHydrationWarning>
       <head>
         <ThemeModeScript />
+        <meta name="algolia-site-verification" content="02CA3FF018627796" />
       </head>
       <body className="bg-white text-gray-600 antialiased dark:bg-gray-900 dark:text-gray-400">
         <ThemeInit />
