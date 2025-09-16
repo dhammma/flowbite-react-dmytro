@@ -19,7 +19,7 @@ export const ColorMap = () => {
       <div className="grid gap-2" style={{ gridTemplateColumns: "min-content 1fr" }}>
         {Object.entries(colorSources).map(([colorName, colorConfig]) => (
           <Fragment key={colorName}>
-            <div className="text-sm font-medium text-gray-300">
+            <div className="flex items-center text-sm font-medium text-gray-300">
               {colorConfig.ukTitle} ({colorName})
             </div>
             <div className="grid grid-cols-11 gap-1">
