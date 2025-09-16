@@ -20,7 +20,7 @@ type ColorMapItem = {
   ukTitle: string;
   introducedBy: ColorSource;
   flowbiteFigma3: Record<ColorShadesTailwind4, string> | null;
-  flowbiteReact127: Record<ColorShadesFlowbiteReact127, string> | null;
+  flowbiteReact127: (Record<ColorShadesFlowbiteReact127, string> & { "950"?: string }) | null;
   tailwind4: Record<ColorShadesTailwind4, string> | null;
   misolla1: Record<ColorShadesTailwind4, string> | null;
 };
