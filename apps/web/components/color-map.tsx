@@ -20,7 +20,8 @@ export const ColorMap = () => {
         {Object.entries(colorSources).map(([colorName, colorConfig]) => (
           <Fragment key={colorName}>
             <div className="flex items-center text-sm font-medium text-gray-300">
-              {colorConfig.ukTitle} ({colorName})
+              {colorConfig.ukTitle}
+              <span className="none font-normal text-gray-500 sm:inline">&nbsp;({colorName})</span>
             </div>
             <div className="grid grid-cols-11 gap-1">
               {SHADES.map((shade) => {
