@@ -13,7 +13,7 @@ import {
 import type { MDXComponents } from "mdx/types";
 import { getMDXComponent } from "next-contentlayer2/hooks";
 import Link from "next/link";
-import { ColorShapes } from "~/components/color-shapes";
+import { ColorMap } from "~/components/color-map";
 import * as examples from "~/examples";
 import { pick } from "~/helpers/pick";
 import { CodeDemo, type CodeData } from "./code-demo";
@@ -26,7 +26,7 @@ const components: MDXComponents = {
   Alert,
   TextDivider,
   IntegrationGuides,
-  ColorShapes,
+  ColorMap,
   pre: PreWithCopy,
 
   // Table component
