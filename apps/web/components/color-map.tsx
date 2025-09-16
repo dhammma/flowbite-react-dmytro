@@ -22,7 +22,7 @@ export const ColorMap = () => {
         <span>Color source:</span>
         <ColorSourceDropdown selectedSource={selectedSource} onSourceChange={setSelectedSource} />
       </div>
-      <div className="flex flex-1 items-center gap-2">
+      <div className="flex w-full flex-1 items-center gap-2">
         <RangeSlider
           className="w-full"
           value={offsetCompare}
@@ -41,7 +41,7 @@ export const ColorMap = () => {
 
   return (
     <div>
-      <div className="mb-4 flex items-center gap-2">{configure}</div>
+      <div className="mb-4 flex flex-col items-center gap-2 sm:flex-row">{configure}</div>
 
       <div className="grid gap-2" style={{ gridTemplateColumns: "min-content 1fr" }}>
         {Object.entries(colorSources).map(([colorName, colorConfig]) => (
@@ -69,7 +69,7 @@ export const ColorMap = () => {
           </Fragment>
         ))}
       </div>
-      <div className="mt-4 flex items-center gap-2">{configure}</div>
+      <div className="mt-4 flex flex-col items-center gap-2 sm:flex-row">{configure}</div>
     </div>
   );
 };
