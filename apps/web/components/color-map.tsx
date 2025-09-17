@@ -43,6 +43,20 @@ const generateTailwind4Config = (selectedSource: ColorSource): string => {
   return `@theme {\n${cssVariables.join("\n")}\n}`;
 };
 
+// Helper function to generate Tailwind 3 config as plain JSON from selected source colors
+const generateTailwind3Config = (selectedSource: ColorSource): string => {
+  const colors: Record<string, Record<string, string>> = {};
+
+  Object.entries(colorSources).forEach(([colorName, colorConfig]) => {
+    const sourceColors = colorConfig[selectedSource];
+    if (sourceColors) {
+      colors[colorName] = sourceColors;
+    }
+  });
+
+  return JSON.stringify({ colors }, null, 2);
+};
+
 // Color information component for popover
 type ColorInfoProps = {
   color: string | undefined;
@@ -88,17 +102,23 @@ export const ColorMap = () => {
   const [compareWith, setCompareWith] = useState<ColorSource>("flowbiteFigma3");
   const [offsetCompare, setOffsetCompare] = useState(0);
   const [showToast, setShowToast] = useState(false);
+  const [copiedConfigType, setCopiedConfigType] = useState<"tailwind3" | "tailwind4" | null>(null);
 
   const handleOffsetCompareChange = (event: ChangeEvent<HTMLInputElement>) => {
     setOffsetCompare(Number(event.target.value));
   };
 
-  const handleCopyToClipboard = async () => {
+  const handleCopyToClipboard = async (configType: "tailwind3" | "tailwind4") => {
     try {
-      const config = generateTailwind4Config(selectedSource);
+      const config =
+        configType === "tailwind3" ? generateTailwind3Config(selectedSource) : generateTailwind4Config(selectedSource);
       await navigator.clipboard.writeText(config);
+      setCopiedConfigType(configType);
       setShowToast(true);
-      setTimeout(() => setShowToast(false), 3000);
+      setTimeout(() => {
+        setShowToast(false);
+        setCopiedConfigType(null);
+      }, 3000);
     } catch (error) {
       console.error("Failed to copy to clipboard:", error);
     }
@@ -130,10 +150,14 @@ export const ColorMap = () => {
   return (
     <div>
       <div className="mb-4 flex flex-col items-center gap-2 sm:flex-row">{configure}</div>
-      <div className="mb-4 flex justify-start">
-        <Button onClick={handleCopyToClipboard} color="light">
+      <div className="mb-4 flex gap-10">
+        <Button onClick={() => handleCopyToClipboard("tailwind4")} color="light">
           <HiClipboard className="h-4 w-4" />
           Copy as Tailwind 4 CSS Variables
+        </Button>
+        <Button onClick={() => handleCopyToClipboard("tailwind3")} color="light">
+          <HiClipboard className="h-4 w-4" />
+          Copy as Tailwind 3 Config (JSON)
         </Button>
       </div>
       <div className="grid gap-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
@@ -226,7 +250,11 @@ export const ColorMap = () => {
               />
             </svg>
           </div>
-          <div className="ml-3 text-sm font-normal">Tailwind 4 CSS variables copied to clipboard!</div>
+          <div className="ml-3 text-sm font-normal">
+            {copiedConfigType === "tailwind3"
+              ? "Tailwind 3 config (JSON) copied to clipboard!"
+              : "Tailwind 4 CSS variables copied to clipboard!"}
+          </div>
           <ToastToggle onDismiss={() => setShowToast(false)} />
         </Toast>
       )}
