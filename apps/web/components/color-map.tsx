@@ -29,7 +29,7 @@ export const ColorMap = () => {
           onChange={handleOffsetCompareChange}
           min={0}
           max={1}
-          step={0.05}
+          step={1}
         />
       </div>
       <div className="flex items-center gap-2">
@@ -43,21 +43,23 @@ export const ColorMap = () => {
     <div>
       <div className="mb-4 flex flex-col items-center gap-2 sm:flex-row">{configure}</div>
 
-      <div className="grid gap-2" style={{ gridTemplateColumns: "min-content 1fr" }}>
+      <div className="grid gap-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
         {Object.entries(colorSources).map(([colorName, colorConfig]) => (
           <Fragment key={colorName}>
-            <div className="hidden items-center text-sm font-medium text-gray-300 sm:flex">
-              {colorConfig.ukTitle}
-              <span className="font-normal text-gray-500">&nbsp;({colorName})</span>
+            <div>
+              <div className="hidden items-center text-sm font-medium text-gray-300 sm:flex">
+                {colorConfig.ukTitle}
+                <span className="font-normal text-gray-500">&nbsp;({colorName})</span>
+              </div>
+              <div className="flex items-center text-xs font-normal text-gray-200 sm:hidden">{colorName}</div>
             </div>
-            <div className="flex items-center text-xs font-normal text-gray-200 sm:hidden">{colorName}</div>
             <div className="grid grid-cols-11 gap-1">
               {SHADES.map((shade) => {
                 const color = colorConfig?.[selectedSource]?.[shade];
                 const compareWithColor = colorConfig?.[compareWith]?.[shade];
 
                 return (
-                  <div key={shade} className="relative aspect-square rounded border border-gray-300">
+                  <div key={shade} className="relative aspect-square max-h-8 rounded border border-gray-300">
                     {!color && <EmptyCell opacity={1 - offsetCompare} />}
                     {color && <FilledCell color={color} opacity={1 - offsetCompare} />}
                     {!compareWithColor && <EmptyCell opacity={offsetCompare} />}
