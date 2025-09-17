@@ -68,8 +68,8 @@ const ColorInfo = ({ color, colorName, shade, source, isCompare = false }: Color
 };
 
 export const ColorMap = () => {
-  const [selectedSource, setSelectedSource] = useState<ColorSource>("misolla1");
-  const [compareWith, setCompareWith] = useState<ColorSource>("tailwind4");
+  const [selectedSource, setSelectedSource] = useState<ColorSource>("misolla2");
+  const [compareWith, setCompareWith] = useState<ColorSource>("flowbiteFigma3");
   const [offsetCompare, setOffsetCompare] = useState(0);
 
   const handleOffsetCompareChange = (event: ChangeEvent<HTMLInputElement>) => {

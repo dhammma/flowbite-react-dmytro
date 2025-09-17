@@ -2,7 +2,7 @@
 
 import { Dropdown, DropdownItem } from "flowbite-react";
 
-export type ColorSource = "misolla1" | "tailwind4" | "flowbiteFigma3" | "flowbiteReact127";
+export type ColorSource = "misolla1" | "misolla2" | "tailwind4" | "flowbiteFigma3" | "flowbiteReact127";
 
 interface ColorSourceOption {
   value: ColorSource;
@@ -10,6 +10,7 @@ interface ColorSourceOption {
 }
 
 const colorSourceOptions: ColorSourceOption[] = [
+  { value: "misolla2", label: "Misolla2" },
   { value: "misolla1", label: "Misolla1" },
   { value: "tailwind4", label: "Tailwind4" },
   { value: "flowbiteFigma3", label: "FlowbiteFigma" },
