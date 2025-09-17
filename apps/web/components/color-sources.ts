@@ -158,15 +158,6 @@ export const colorSources: Record<string, ColorMapItem> = {
     misolla1: null,
     misolla2: colorSourceMisolla2.emerald,
   },
-  lagoona: {
-    ukTitle: "Лагуна",
-    introducedBy: "misolla1",
-    flowbiteFigma3: null,
-    flowbiteReact127: null,
-    tailwind4: null,
-    misolla1: colorSourceMisolla1.lagoona,
-    misolla2: colorSourceMisolla2.lagoona,
-  },
   teal: {
     ukTitle: "Бірюзовий",
     introducedBy: "tailwind4",
@@ -175,6 +166,15 @@ export const colorSources: Record<string, ColorMapItem> = {
     tailwind4: colorSourceTailwind4.teal,
     misolla1: colorSourceMisolla1.teal,
     misolla2: colorSourceMisolla2.teal,
+  },
+  lagoona: {
+    ukTitle: "Лагуна",
+    introducedBy: "misolla1",
+    flowbiteFigma3: null,
+    flowbiteReact127: null,
+    tailwind4: null,
+    misolla1: colorSourceMisolla1.lagoona,
+    misolla2: colorSourceMisolla2.lagoona,
   },
   cyan: {
     ukTitle: "Блакитний",
