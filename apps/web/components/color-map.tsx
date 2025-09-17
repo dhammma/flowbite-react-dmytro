@@ -167,7 +167,7 @@ export const ColorMap = () => {
                       {!compareWithColor && <EmptyCell opacity={offsetCompare} />}
                       {compareWithColor && <FilledCell color={compareWithColor} opacity={offsetCompare} />}
                       {hasDifference && (
-                        <div className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-white shadow-sm">
+                        <div className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600/90 text-white shadow-sm">
                           <HiPencil className="h-2.5 w-2.5" />
                         </div>
                       )}
