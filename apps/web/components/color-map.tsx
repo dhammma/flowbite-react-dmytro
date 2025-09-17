@@ -2,10 +2,18 @@
 
 import { RangeSlider } from "flowbite-react";
 import { Fragment, useState, type ChangeEvent } from "react";
+import { HiPencil } from "react-icons/hi";
 import { ColorSourceDropdown, type ColorSource } from "~/components/color-source-dropdown";
 import { colorSources } from "./color-sources";
 
 const SHADES = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950"] as const;
+
+// Helper function to compare colors
+const colorsAreDifferent = (color1: string | undefined, color2: string | undefined): boolean => {
+  if (typeof color1 !== typeof color2) return true;
+  if (!color1 || !color2) return false;
+  return color1.toLowerCase() !== color2.toLowerCase();
+};
 
 export const ColorMap = () => {
   const [selectedSource, setSelectedSource] = useState<ColorSource>("misolla1");
@@ -57,6 +65,7 @@ export const ColorMap = () => {
               {SHADES.map((shade) => {
                 const color = colorConfig?.[selectedSource]?.[shade];
                 const compareWithColor = colorConfig?.[compareWith]?.[shade];
+                const hasDifference = colorsAreDifferent(color, compareWithColor);
 
                 return (
                   <div key={shade} className="relative aspect-square max-h-8 rounded border border-gray-300">
@@ -64,6 +73,11 @@ export const ColorMap = () => {
                     {color && <FilledCell color={color} opacity={1 - offsetCompare} />}
                     {!compareWithColor && <EmptyCell opacity={offsetCompare} />}
                     {compareWithColor && <FilledCell color={compareWithColor} opacity={offsetCompare} />}
+                    {hasDifference && (
+                      <div className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-white shadow-sm">
+                        <HiPencil className="h-2.5 w-2.5" />
+                      </div>
+                    )}
                   </div>
                 );
               })}
