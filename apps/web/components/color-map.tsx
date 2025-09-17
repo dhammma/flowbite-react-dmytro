@@ -1,8 +1,8 @@
 "use client";
 
-import { Popover, RangeSlider } from "flowbite-react";
+import { Button, Popover, RangeSlider, Toast, ToastToggle } from "flowbite-react";
 import { Fragment, useState, type ChangeEvent } from "react";
-import { HiPencil } from "react-icons/hi";
+import { HiClipboard, HiPencil } from "react-icons/hi";
 import { ColorSourceDropdown, type ColorSource } from "~/components/color-source-dropdown";
 import { colorSources } from "./color-sources";
 
@@ -25,6 +25,22 @@ const hexToRgb = (hex: string) => {
         b: parseInt(result[3], 16),
       }
     : null;
+};
+
+// Helper function to generate Tailwind 4 config from selected source colors
+const generateTailwind4Config = (selectedSource: ColorSource): string => {
+  const cssVariables: string[] = [];
+
+  Object.entries(colorSources).forEach(([colorName, colorConfig]) => {
+    const sourceColors = colorConfig[selectedSource];
+    if (sourceColors) {
+      Object.entries(sourceColors).forEach(([shade, color]) => {
+        cssVariables.push(`  --color-${colorName}-${shade}: ${color};`);
+      });
+    }
+  });
+
+  return `@theme {\n${cssVariables.join("\n")}\n}`;
 };
 
 // Color information component for popover
@@ -71,9 +87,21 @@ export const ColorMap = () => {
   const [selectedSource, setSelectedSource] = useState<ColorSource>("misolla2");
   const [compareWith, setCompareWith] = useState<ColorSource>("flowbiteFigma3");
   const [offsetCompare, setOffsetCompare] = useState(0);
+  const [showToast, setShowToast] = useState(false);
 
   const handleOffsetCompareChange = (event: ChangeEvent<HTMLInputElement>) => {
     setOffsetCompare(Number(event.target.value));
+  };
+
+  const handleCopyToClipboard = async () => {
+    try {
+      const config = generateTailwind4Config(selectedSource);
+      await navigator.clipboard.writeText(config);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+    } catch (error) {
+      console.error("Failed to copy to clipboard:", error);
+    }
   };
 
   const configure = (
@@ -102,7 +130,12 @@ export const ColorMap = () => {
   return (
     <div>
       <div className="mb-4 flex flex-col items-center gap-2 sm:flex-row">{configure}</div>
-
+      <div className="mb-4 flex justify-start">
+        <Button onClick={handleCopyToClipboard} color="light">
+          <HiClipboard className="h-4 w-4" />
+          Copy as Tailwind 4 CSS Variables
+        </Button>
+      </div>
       <div className="grid gap-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
         {Object.entries(colorSources).map(([colorName, colorConfig]) => (
           <Fragment key={colorName}>
@@ -180,6 +213,23 @@ export const ColorMap = () => {
         ))}
       </div>
       <div className="mt-4 flex flex-col items-center gap-2 sm:flex-row">{configure}</div>
+
+      {/* Toast notification */}
+      {showToast && (
+        <Toast className="fixed bottom-4 right-4 z-50">
+          <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-500">
+            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fillRule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+          <div className="ml-3 text-sm font-normal">Tailwind 4 CSS variables copied to clipboard!</div>
+          <ToastToggle onDismiss={() => setShowToast(false)} />
+        </Toast>
+      )}
     </div>
   );
 };
