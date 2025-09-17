@@ -1,6 +1,6 @@
 "use client";
 
-import { RangeSlider } from "flowbite-react";
+import { Popover, RangeSlider } from "flowbite-react";
 import { Fragment, useState, type ChangeEvent } from "react";
 import { HiPencil } from "react-icons/hi";
 import { ColorSourceDropdown, type ColorSource } from "~/components/color-source-dropdown";
@@ -13,6 +13,58 @@ const colorsAreDifferent = (color1: string | undefined, color2: string | undefin
   if (typeof color1 !== typeof color2) return true;
   if (!color1 || !color2) return false;
   return color1.toLowerCase() !== color2.toLowerCase();
+};
+
+// Helper function to convert hex to RGB
+const hexToRgb = (hex: string) => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
+};
+
+// Color information component for popover
+type ColorInfoProps = {
+  color: string | undefined;
+  colorName: string;
+  shade: string;
+  source: ColorSource;
+  isCompare?: boolean;
+};
+
+const ColorInfo = ({ color, colorName, shade, source, isCompare = false }: ColorInfoProps) => {
+  if (!color) {
+    return (
+      <div className="flex flex-col items-center gap-2">
+        <div className="h-16 w-16 rounded border-2 border-dashed border-gray-400 bg-gray-100"></div>
+        <div className="text-center">
+          <div className="text-sm font-medium text-gray-600">No color</div>
+          <div className="text-xs text-gray-500">{source}</div>
+        </div>
+      </div>
+    );
+  }
+
+  const rgb = hexToRgb(color);
+  const rgbString = rgb ? `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})` : color;
+
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div className="h-16 w-16 rounded border border-gray-300 shadow-sm" style={{ backgroundColor: color }}></div>
+      <div className="text-center">
+        <div className="text-sm font-medium text-gray-900">
+          {colorName} {shade}
+        </div>
+        <div className="text-xs text-gray-600">{color}</div>
+        <div className="text-xs text-gray-500">{rgbString}</div>
+        <div className="text-xs text-gray-400">{source}</div>
+      </div>
+    </div>
+  );
 };
 
 export const ColorMap = () => {
@@ -67,18 +119,60 @@ export const ColorMap = () => {
                 const compareWithColor = colorConfig?.[compareWith]?.[shade];
                 const hasDifference = colorsAreDifferent(color, compareWithColor);
 
-                return (
-                  <div key={shade} className="relative aspect-square max-h-8 rounded border border-gray-300">
-                    {!color && <EmptyCell opacity={1 - offsetCompare} />}
-                    {color && <FilledCell color={color} opacity={1 - offsetCompare} />}
-                    {!compareWithColor && <EmptyCell opacity={offsetCompare} />}
-                    {compareWithColor && <FilledCell color={compareWithColor} opacity={offsetCompare} />}
-                    {hasDifference && (
-                      <div className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-white shadow-sm">
-                        <HiPencil className="h-2.5 w-2.5" />
-                      </div>
-                    )}
+                const popoverContent = (
+                  <div className="w-80 p-4">
+                    <div className="mb-3 text-center">
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        {colorConfig.ukTitle} ({colorName})
+                      </h3>
+                      <p className="text-sm text-gray-600">Shade: {shade}</p>
+                    </div>
+                    <div className="flex justify-center gap-6">
+                      <ColorInfo color={color} colorName={colorName} shade={shade} source={selectedSource} />
+                      <ColorInfo
+                        color={compareWithColor}
+                        colorName={colorName}
+                        shade={shade}
+                        source={compareWith}
+                        isCompare={true}
+                      />
+                    </div>
+                    <div className="mt-3 text-center">
+                      {hasDifference ? (
+                        <div className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-800">
+                          <HiPencil className="h-3 w-3" />
+                          Colors differ
+                        </div>
+                      ) : (
+                        <div className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-1 text-xs text-green-800">
+                          <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          Colors match
+                        </div>
+                      )}
+                    </div>
                   </div>
+                );
+
+                return (
+                  <Popover key={shade} content={popoverContent} trigger="click">
+                    <div className="relative aspect-square max-h-8 cursor-pointer rounded border border-gray-300 transition-colors hover:border-gray-400">
+                      {!color && <EmptyCell opacity={1 - offsetCompare} />}
+                      {color && <FilledCell color={color} opacity={1 - offsetCompare} />}
+                      {!compareWithColor && <EmptyCell opacity={offsetCompare} />}
+                      {compareWithColor && <FilledCell color={compareWithColor} opacity={offsetCompare} />}
+                      {hasDifference && (
+                        <div className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-white shadow-sm">
+                          <HiPencil className="h-2.5 w-2.5" />
+                        </div>
+                      )}
+                    </div>
+                  </Popover>
                 );
               })}
             </div>
