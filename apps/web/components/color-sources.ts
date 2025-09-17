@@ -63,7 +63,7 @@ export const colorSources: Record<string, ColorMapItem> = {
   zinc: {
     ukTitle: "Цинк",
     introducedBy: "tailwind4",
-    flowbiteFigma3: colorSourceFigma3.gray,
+    flowbiteFigma3: colorSourceFigma3.zinc,
     flowbiteReact127: null,
     tailwind4: colorSourceTailwind4.zinc,
     misolla1: null,
@@ -79,7 +79,7 @@ export const colorSources: Record<string, ColorMapItem> = {
   stone: {
     ukTitle: "Камінь",
     introducedBy: "tailwind4",
-    flowbiteFigma3: colorSourceFigma3.neutral,
+    flowbiteFigma3: colorSourceFigma3.stone,
     flowbiteReact127: null,
     tailwind4: colorSourceTailwind4.stone,
     misolla1: null,
@@ -95,7 +95,7 @@ export const colorSources: Record<string, ColorMapItem> = {
   orange: {
     ukTitle: "Помаранчевий",
     introducedBy: "tailwind4",
-    flowbiteFigma3: colorSourceFigma3.neutral,
+    flowbiteFigma3: colorSourceFigma3.orange,
     flowbiteReact127: colorSourceFlowbiteReact127.orange,
     tailwind4: colorSourceTailwind4.orange,
     misolla1: colorSourceMisolla1.orange,
@@ -103,7 +103,7 @@ export const colorSources: Record<string, ColorMapItem> = {
   amber: {
     ukTitle: "Бурштин",
     introducedBy: "tailwind4",
-    flowbiteFigma3: colorSourceFigma3.neutral,
+    flowbiteFigma3: colorSourceFigma3.amber,
     flowbiteReact127: null,
     tailwind4: colorSourceTailwind4.amber,
     misolla1: null,
@@ -111,7 +111,7 @@ export const colorSources: Record<string, ColorMapItem> = {
   yellow: {
     ukTitle: "Жовтий",
     introducedBy: "tailwind4",
-    flowbiteFigma3: colorSourceFigma3.neutral,
+    flowbiteFigma3: colorSourceFigma3.yellow,
     flowbiteReact127: colorSourceFlowbiteReact127.yellow,
     tailwind4: colorSourceTailwind4.yellow,
     misolla1: colorSourceMisolla1.yellow,
@@ -119,7 +119,7 @@ export const colorSources: Record<string, ColorMapItem> = {
   lime: {
     ukTitle: "Лайм",
     introducedBy: "tailwind4",
-    flowbiteFigma3: colorSourceFigma3.neutral,
+    flowbiteFigma3: colorSourceFigma3.lime,
     flowbiteReact127: null,
     tailwind4: colorSourceTailwind4.lime,
     misolla1: null,
@@ -127,7 +127,7 @@ export const colorSources: Record<string, ColorMapItem> = {
   green: {
     ukTitle: "Зелений",
     introducedBy: "tailwind4",
-    flowbiteFigma3: colorSourceFigma3.neutral,
+    flowbiteFigma3: colorSourceFigma3.green,
     flowbiteReact127: colorSourceFlowbiteReact127.green,
     tailwind4: colorSourceTailwind4.green,
     misolla1: colorSourceMisolla1.green,
@@ -135,7 +135,7 @@ export const colorSources: Record<string, ColorMapItem> = {
   emerald: {
     ukTitle: "Смарагд",
     introducedBy: "tailwind4",
-    flowbiteFigma3: colorSourceFigma3.neutral,
+    flowbiteFigma3: colorSourceFigma3.emerald,
     flowbiteReact127: null,
     tailwind4: colorSourceTailwind4.emerald,
     misolla1: null,
@@ -151,7 +151,7 @@ export const colorSources: Record<string, ColorMapItem> = {
   teal: {
     ukTitle: "Бірюзовий",
     introducedBy: "tailwind4",
-    flowbiteFigma3: colorSourceFigma3.neutral,
+    flowbiteFigma3: colorSourceFigma3.teal,
     flowbiteReact127: colorSourceFlowbiteReact127.teal,
     tailwind4: colorSourceTailwind4.teal,
     misolla1: colorSourceMisolla1.teal,
@@ -159,7 +159,7 @@ export const colorSources: Record<string, ColorMapItem> = {
   cyan: {
     ukTitle: "Блакитний",
     introducedBy: "tailwind4",
-    flowbiteFigma3: colorSourceFigma3.neutral,
+    flowbiteFigma3: colorSourceFigma3.cyan,
     flowbiteReact127: null,
     tailwind4: colorSourceTailwind4.cyan,
     misolla1: colorSourceMisolla1.cyan,
@@ -167,7 +167,7 @@ export const colorSources: Record<string, ColorMapItem> = {
   sky: {
     ukTitle: "Небо",
     introducedBy: "tailwind4",
-    flowbiteFigma3: colorSourceFigma3.neutral,
+    flowbiteFigma3: colorSourceFigma3.sky,
     flowbiteReact127: null,
     tailwind4: colorSourceTailwind4.sky,
     misolla1: null,
